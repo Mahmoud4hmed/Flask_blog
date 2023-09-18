@@ -1,6 +1,6 @@
 # Blog Website
 #### Video Demo:  https://youtu.be/Xj5mcUfyma0
-#### Description: This a blog management website
+#### Description: The Blog Management Web Application is a feature-rich platform designed to simplify the process of creating, managing, and sharing blog content. It provides an intuitive and user-friendly interface for both bloggers and administrators. Whether you're a writer looking to share your thoughts with the world or an administrator overseeing a community of bloggers, this application has you covered.
 
 This project is a web application created using Python and the Flask framework. It allows users to create and manage a blog. Here's a simplified explanation of what it does:
 
