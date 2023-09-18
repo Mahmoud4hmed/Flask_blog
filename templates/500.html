@@ -1,9 +1,9 @@
-{% extends 'layout.html' %}
+{% extends 'err.html' %}
 
 {% block title %}500 Internal Server Error{% endblock %}
 
 {% block style %}
-  <link rel="stylesheet" href="../static/404.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/err.css')}}">
 {% endblock %}
 
 {% block content %}

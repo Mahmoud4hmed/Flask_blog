@@ -1,0 +1,37 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block style %}
+    <style>
+        body, html {
+            height: 80%;
+        }
+
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<br><br><form action="/login" method="post">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username or Email</label>
+            <input name="email" required type="text" class="form-control" id="username" placeholder="Enter your username">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input name="password" required type="password" class="form-control" id="password" placeholder="Enter your password">
+        </div>
+        <button type="submit" class="btn btn-secondary">Login</button>
+    </form>
+
+{% endblock %}

@@ -1,0 +1,40 @@
+{% extends 'layout.html' %}
+
+{% block title %}Find Users{% endblock %}
+
+{% block content %}
+    
+    <div class="table-responsive" style="margin-top: 40px;">
+        <h1>Users</h1><br>
+        <form action="/search" method="post" class="d-flex" role="search" style="margin-bottom: 40px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input name="search" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Privilege</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            <thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user[1] }} {{ user[2] }}</td>
+                        <td>{{ user[3] }}</td>   
+                        <td>{{ user[4] }}</td>
+                        <td>{{ user[7] }}</td>
+                        <td><a href="{{ url_for('update', id=user[0]) }}" class="btn btn-secondary">Edit</a></td>
+                        <td><a href="{{ url_for('delete', id=user[0]) }}" class="btn btn-danger">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+    
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Post{% endblock %}
+
+{% block content %}
+    <div class="container shadow-sm p-3 mb-5 bg-body-tertiary rounded" style="margin-top: 40px; padding: 40px">
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <h1>Add Post</h1><br>
+        <form action="/add-post" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="title" class="form-label">Title</label>
+            <input name="title" required type="text" class="form-control shadow p-3 mb-5 bg-body-tertiary rounded" id="title" placeholder="Title">
+            <br>
+            <label for="content" class="form-label">Content</label>
+            <div class="mb-3">
+                {{ ckeditor.create() }}
+            </div>
+            <br>
+            <input type="submit" value="Post" class="btn btn-success" style="font-size: 20px; width: 100px;">
+        </form>
+    </div>
+{% endblock %}

@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+ {% block title %}{{ posts[1] }}{% endblock %}
+
+{% block content %}
+    <div class="container" style="margin-top: 40px;">
+        <h1>{{ posts[1] }}</h1>
+        <br>
+        <div class="card shadow p-3 mb-5 bg-body-tertiary rounded" style="width: 80%; margin: 20px; padding: 20px">
+            <h4 class="card-title">{{ posts[1] }}</h4>
+            <small class="card-text">Author: {{ posts[3] }}</small>
+            <small class="card-text">{{ posts[4] }}</small><br>
+            <p class="card-text">{{ posts[2]|safe }}</p>
+            {% if type == 'admin' or type == 'owner' %}
+            {% if session['id'] == posts[6] or session['privilege'] == 'owner' %}
+            <div class="container text-center">
+                <div class="row row-cols-auto">
+                    <div class="col">
+                        <a href="{{ url_for('edit', id=posts[0] ) }}" class="btn btn-secondary" style="font-size: 20px; width: 80px; margin-bottom: 10px">Edit</a></div>
+                    <div class="col">
+                      <a href="{{ url_for('delete_post', id=posts[0] ) }}" class="btn btn-danger" style="font-size: 20px; width: 85px; margin-bottom: 10px">Delete</a><br></div>
+                </div>
+            </div>
+            {% endif %}
+            {% endif %}
+        </div>
+            <div class="container">
+            <a href="{{ url_for('index') }}" class="btn btn-primary" style="font-size: 20px; width: 150px; margin-bottom: 30px">Back to Blog</a>
+            </div>
+{% endblock %}

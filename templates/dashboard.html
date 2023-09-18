@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert" style="margin-top: 40px;">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+    {% endfor %}
+    <div class="table-responsive" style="margin-top: 40px;">
+        <h1>Add User</h1><br>
+        <form action="/add_user" method="post" style="padding: 20px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" required name="first_name" id="first_name" class="form-control"><br>
+
+            <label for="second_name" class="form-label">Second Name</label>
+            <input type="text" required name="second_name" id="second_name" class="form-control"><br>
+
+            <label for="username" class="form-label">Username</label>
+            <input type="text" required name="username" id="username" class="form-control"><br>
+            
+            <label for="username" class="form-label">Account Type</label>
+            <div class="wrapperr">
+                <div class="optionn">
+                  <input class="inputt" type="radio" name="btnn" value="user" checked="">
+                  <div class="btnn">
+                    <span class="spann">User</span>
+                  </div>
+                </div>
+                <div class="optionn">
+                  <input class="inputt" type="radio" name="btnn" value="admin">
+                  <div class="btnn">
+                    <span class="spann">Admin</span>
+                  </div>
+                </div>
+              </div><br>
+
+            <label for="email" class="form-label">Email</label>
+            <input type="email" required name="email" id="email" class="form-control"><br>
+
+            <label for="password" class="form-label">Password</label>
+            <input type="password" required name="password" id="password" class="form-control"><br>
+
+            <label for="confirm_password" class="form-label">Confirm Password</label>
+            <input type="password" required name="confirm_password" id="confirm_password" class="form-control"><br>
+
+            <input type="submit" value="Submit" class="btn btn-success" style="font-size: 20px; width: 100%;">
+        </form>
+    </div>
+
+    
+    <div class="table-responsive" style="margin-top: 40px;">
+        <h1>Users</h1><br>
+        <h3>Users Count: {{ count }}</h3>
+        <form action="/search" style="margin: 30px;" method="post" class="d-flex" role="search">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input name="search" class="form-control me-2 form-control-lg" type="search" placeholder="Search" aria-label="Search User">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Username</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">privilege</th>
+                    <th scope="col">Edit</th>
+                    <th scope="col">Delete</th>
+                </tr>
+            <thead>
+            <tbody>
+                {% for user in users %}
+                    <tr>
+                        <td>{{ user[1] }} {{ user[2] }}</td>
+                        <td>{{ user[3] }}</td>   
+                        <td>{{ user[4] }}</td>
+                        <td>{{ user[7] }}</td>
+                        {% if session['privilege'] == "admin" %}
+                            {% if user[0] == session['id'] or user[7] == "user" %}
+                            <td><a href="{{ url_for('update', id=user[0]) }}" class="btn btn-secondary">Edit</a></td>
+                            <td><a href="{{ url_for('delete', id=user[0]) }}" class="btn btn-danger">Delete</a></td>
+                            {% endif %}
+                        {% elif session['privilege'] == "owner" %}
+                            <td><a href="{{ url_for('update', id=user[0]) }}" class="btn btn-secondary">Edit</a></td>
+                            <td><a href="{{ url_for('delete', id=user[0]) }}" class="btn btn-danger">Delete</a></td>
+                        {% endif %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table> 
+    </div>
+{% endblock %}

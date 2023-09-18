@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Update{% endblock %}
+
+{% block content %}
+
+        <div class="container" style="margin-top: 40px;">
+            {% for message in get_flashed_messages() %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+            <form action="{{ url_for('update', id=users[0][0]) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <label for="first_name" class="form-label">First Name</label>
+                <input type="text" name="first_name" id="first_name" value="{{ users[0][1] }}" class="form-control"><br>
+
+                <label for="second_name" class="form-label">Second Name</label>
+                <input type="text" name="second_name" id="second_name" value="{{ users[0][2] }}" class="form-control"><br>
+
+                <label for="username" class="form-label">Username</label>
+                <input type="text" name="username" id="username" value="{{ users[0][3] }}" class="form-control"><br>
+                {% if users[0][0] != 1%}
+                    <label for="username" class="form-label">Account Type</label>
+                    <div class="wrapperr">
+                        <div class="optionn">
+                        <input class="inputt" type="radio" name="btnn" value="user" {% if option == 'user' %}checked{% endif %}>
+                        <div class="btnn">
+                            <span class="spann">User</span>
+                        </div>
+                        </div>
+                        <div class="optionn">
+                    <input class="inputt" type="radio" name="btnn" value="admin" {% if option == 'admin' %}checked{% endif %}>
+                        <div class="btnn">
+                            <span class="spann">Admin</span>
+                        </div>
+                        </div>
+                    </div><br>
+                {% endif %}
+                <label for="email" class="form-label">Email</label>
+                <input type="email" name="email" id="email" value="{{ users[0][4] }}" class="form-control"><br>
+
+                <label for="password" class="form-label">Password</label>
+                <input type="password" value="{{ old_pass }}" name="password" id="password" class="form-control"><br>
+
+                <input type="submit" value="Save" class="btn btn-success" style="font-size: 20px; width: 100%; margin-bottom: 20px;">
+            </form>
+        </div>
+
+{% endblock %}

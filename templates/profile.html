@@ -1,0 +1,59 @@
+{% extends 'layout.html' %}
+
+{% block title %}{{ name }}{% endblock %}
+
+{% block content %}
+
+  {% for message in get_flashed_messages() %}
+    <div class="alert alert-info alert-dismissible fade show" role="alert" style="margin-top: 40px;">
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+
+<div class="card">
+  <div class="card-header">
+    <h5 class="card-title">Account Details</h5>
+  </div>
+  <div class="card-body">
+    <h5><strong>First Name: </strong>{{ users[0][1] }}</h5>
+    <h5><strong>Second Name: </strong>{{ users[0][2] }}</h5>
+    <h5><strong>Username: </strong>{{ users[0][3] }}</h5>
+    <h5><strong>Email: </strong>{{ users[0][4] }}</h5>
+    <h5><strong>Date Joined: </strong>{{ users[0][6] }}</h5>
+  </div>
+</div>
+
+<div class="table-responsive" style="margin-top: 40px;">
+  <form action="/profile" method="post" style="padding: 20px;">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <h3>Edit Your Details</h3>
+    <label for="first_name" class="form-label">First Name</label>
+    <input type="text" value="{{ users[0][1] }}" required name="first_name" id="first_name" class="form-control"><br>
+
+    <label for="second_name" class="form-label">Second Name</label>
+    <input type="text" value="{{ users[0][2] }}" required name="second_name" id="second_name" class="form-control"><br>
+
+    <label for="username" class="form-label">Username</label>
+    <input type="text" value="{{ users[0][3] }}" required name="username" id="username" class="form-control"><br>
+
+    <label for="email" class="form-label">Email</label>
+    <input type="email" value="{{ users[0][4] }}" required name="email" id="email" class="form-control"><br>
+    
+    <h3>Change Your Password</h3>
+
+    <label for="password" class="form-label">Old Password</label>
+    <input type="password" name="old_password" id="password" class="form-control"><br>
+
+    <label for="password" class="form-label">New Password</label>
+    <input type="password" name="password" id="password" class="form-control"><br>
+
+    <label for="confirm_password" class="form-label">Confirm New Password</label>
+    <input type="password" name="confirm_password" id="confirm_password" class="form-control"><br>
+
+    <input type="submit" value="Submit" class="btn btn-success" style="font-size: 20px; width: 100%;">
+  </form>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Post{% endblock %}
+
+{% block content %}
+    {% if session['id'] == posts[6] or session['privilege'] == 'owner' %}
+        <div class="container shadow-sm p-3 mb-5 bg-body-tertiary rounded" style="margin-top: 40px; padding: 40px">
+            <h1>Edit Post</h1><br>
+            <form action="{{ url_for('edit', id=posts[0]) }}" method="post">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <label for="title" class="form-label">Title</label>
+                <input name="title" required value="{{ posts[1] }}" type="text" class="form-control shadow p-3 mb-5 bg-body-tertiary rounded" id="title" placeholder="Title">
+                <br>
+                <label for="content" class="form-label">Content</label>
+                <div class="mb-3">
+                    <textarea name="content" id="mytextarea" required id="exampleFormControlTextarea1" placeholder="Blog Post Content" rows="15">{{ posts[2] }}</textarea>
+                </div>
+                <br>
+                <input type="submit" value="Post" class="btn btn-success" style="font-size: 20px; width: 100px;">
+                <a onclick="history.back(-1)" class="btn btn-secondary" style="font-size: 20px; width: 100px;">Cancel</a>
+            </form>
+        </div>
+    {% endif %}
+{% endblock %}
