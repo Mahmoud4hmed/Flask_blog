@@ -323,7 +323,7 @@ def delete_post(id):
             cur.connection.commit()
             cur.close()
             flash('Post has been deleted')
-            return redirect(url_for('/'))
+            return redirect(url_for('index'))
         else:
             return render_template('404.html')
     else:
